@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>ProxyScout</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b6cff'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='white' stroke-width='2.5' opacity='.55'/%3E%3Ccircle cx='16' cy='16' r='4' fill='white'/%3E%3Cpath d='M16 16 L24 8' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/app.css" />
+  <script>
+    try { const t = localStorage.getItem('ps-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+  </script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M4 6h.01"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><path d="M12 18h.01"/><path d="M17.99 11.66A6 6 0 0 1 15.77 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L7.5 3.64A1 1 0 0 0 6 4.5z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="13" height="13" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6M12 19h8"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><span></span></div>
+      <div>
+        <div class="brand-name">ProxyScout</div>
+        <div class="brand-sub">Scraper &amp; checker</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-view="dashboard"><svg class="ic"><use href="#i-dashboard"/></svg><span>Dashboard</span><kbd>1</kbd></button>
+      <button class="nav-item" data-view="scraper"><svg class="ic"><use href="#i-radar"/></svg><span>Scraper</span><kbd>2</kbd></button>
+      <button class="nav-item" data-view="checker"><svg class="ic"><use href="#i-shield"/></svg><span>Checker</span><kbd>3</kbd></button>
+      <button class="nav-item" data-view="proxies"><svg class="ic"><use href="#i-db"/></svg><span>Proxies</span><span class="nav-count" id="nav-working">0</span></button>
+      <button class="nav-item" data-view="settings"><svg class="ic"><use href="#i-sliders"/></svg><span>Settings</span><kbd>5</kbd></button>
+    </nav>
+
+    <div class="jobs">
+      <div class="job" id="job-scrape">
+        <div class="job-head"><span class="pulse"></span><span class="job-name">Scraper</span><span class="job-state">Idle</span></div>
+        <div class="meter"><i></i></div>
+      </div>
+      <div class="job" id="job-check">
+        <div class="job-head"><span class="pulse"></span><span class="job-name">Checker</span><span class="job-state">Idle</span></div>
+        <div class="meter"><i></i></div>
+      </div>
+    </div>
+    <div class="sidebar-foot"><span id="conn" class="conn">Connecting…</span><span id="version"></span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menu-btn" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+      <div class="titles">
+        <h1 id="page-title">Dashboard</h1>
+        <p id="page-sub">Overview of your proxy pool</p>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="theme-btn" title="Toggle theme"><svg class="ic"><use href="#i-sun"/></svg></button>
+        <button class="icon-btn" id="help-btn" title="User guide (F1)"><svg class="ic"><use href="#i-help"/></svg></button>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+      <!-- ================= DASHBOARD ================= -->
+      <section class="view active" id="view-dashboard">
+        <div class="kpis">
+          <div class="kpi kpi-primary">
+            <div class="kpi-label">Working proxies</div>
+            <div class="kpi-value" id="k-working">—</div>
+            <div class="kpi-foot" id="k-working-foot">of — in database</div>
+          </div>
+          <div class="kpi"><div class="kpi-label">Elite (high anonymity)</div><div class="kpi-value" id="k-elite">—</div><div class="kpi-foot" id="k-elite-foot">&nbsp;</div></div>
+          <div class="kpi"><div class="kpi-label">Google pass</div><div class="kpi-value" id="k-google">—</div><div class="kpi-foot" id="k-google-foot">&nbsp;</div></div>
+          <div class="kpi"><div class="kpi-label">Avg. response</div><div class="kpi-value" id="k-latency">—</div><div class="kpi-foot" id="k-latency-foot">&nbsp;</div></div>
+          <div class="kpi"><div class="kpi-label">Countries</div><div class="kpi-value" id="k-countries">—</div><div class="kpi-foot" id="k-untested">&nbsp;</div></div>
+        </div>
+
+        <div class="card pipeline">
+          <div class="step" id="step-scrape">
+            <div class="step-num">1</div>
+            <div class="step-body"><h3>Scrape sources</h3><p id="step-scrape-desc">Pull fresh lists from your enabled sources.</p></div>
+            <button class="btn btn-primary" data-action="scrape-toggle"><svg class="ic"><use href="#i-play"/></svg><span>Start scraper</span></button>
+          </div>
+          <svg class="ic step-arrow"><use href="#i-arrow"/></svg>
+          <div class="step" id="step-check">
+            <div class="step-num">2</div>
+            <div class="step-body"><h3>Test &amp; validate</h3><p id="step-check-desc">Speed, anonymity, Google and country.</p></div>
+            <button class="btn" data-action="check-untested"><svg class="ic"><use href="#i-shield"/></svg><span>Check untested</span></button>
+          </div>
+          <svg class="ic step-arrow"><use href="#i-arrow"/></svg>
+          <div class="step" id="step-export">
+            <div class="step-num">3</div>
+            <div class="step-body"><h3>Filter &amp; export</h3><p>Download working proxies as TXT or CSV.</p></div>
+            <button class="btn" data-action="export-working"><svg class="ic"><use href="#i-download"/></svg><span>Export working</span></button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h2>Protocol mix</h2><span class="muted small">working only</span></div>
+            <div class="stack" id="d-types"></div>
+            <div class="legend" id="d-types-legend"></div>
+            <div class="card-head mt"><h2>Anonymity</h2></div>
+            <div class="stack" id="d-anon"></div>
+            <div class="legend" id="d-anon-legend"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Response time</h2><span class="muted small" id="d-fastest"></span></div>
+            <div class="hist" id="d-hist"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Top countries</h2></div>
+            <div class="bars" id="d-countries"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Fastest working</h2><button class="link-btn" data-goto="proxies">View all</button></div>
+            <div class="mini-list" id="d-fast"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SCRAPER ================= -->
+      <section class="view" id="view-scraper">
+        <div class="split">
+          <div class="col-side">
+            <div class="card">
+              <div class="card-head"><h2>Scraper run</h2><span class="badge" id="s-state">Idle</span></div>
+              <div class="run-stats">
+                <div><span class="rs-val" id="s-done">0/0</span><span class="rs-label">Sources</span></div>
+                <div><span class="rs-val" id="s-found">0</span><span class="rs-label">Found</span></div>
+                <div><span class="rs-val accent" id="s-added">0</span><span class="rs-label">New</span></div>
+                <div><span class="rs-val" id="s-dupes">0</span><span class="rs-label">Duplicates</span></div>
+              </div>
+              <div class="progress"><i id="s-bar"></i></div>
+              <button class="btn btn-primary btn-block btn-lg" data-action="scrape-toggle" id="s-btn"><svg class="ic"><use href="#i-play"/></svg><span>Start scraper</span></button>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h2>Scraper settings</h2></div>
+              <label class="field">
+                <span class="field-row"><span>Threads</span><output data-out="scrapeThreads"></output></span>
+                <input type="range" min="1" max="100" data-setting="scrapeThreads" />
+                <small>Sources fetched in parallel.</small>
+              </label>
+              <div class="field-grid">
+                <label class="field"><span>Per-source limit</span><input type="number" min="0" step="100" data-setting="perSourceLimit" /><small>0 = unlimited</small></label>
+                <label class="field"><span>Timeout (ms)</span><input type="number" min="2000" step="1000" data-setting="scrapeTimeout" /></label>
+              </div>
+              <label class="toggle"><input type="checkbox" data-setting="autoCheckAfterScrape" /><span class="track"></span><span>Send new proxies to the checker automatically</span></label>
+            </div>
+          </div>
+
+          <div class="col-main">
+            <div class="card card-flush">
+              <div class="card-head pad">
+                <div><h2>Sources</h2><p class="muted small" id="src-summary"></p></div>
+                <div class="row-gap">
+                  <button class="btn btn-ghost btn-sm" data-action="src-all">Enable all</button>
+                  <button class="btn btn-ghost btn-sm" data-action="src-none">Disable all</button>
+                  <button class="btn btn-sm" data-action="src-add"><svg class="ic"><use href="#i-plus"/></svg><span>Add source</span></button>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="table" id="src-table">
+                  <thead><tr><th class="w-check"></th><th>Source</th><th>Type</th><th class="num">Limit</th><th>Last result</th><th class="w-actions"></th></tr></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CHECKER ================= -->
+      <section class="view" id="view-checker">
+        <div class="split">
+          <div class="col-side">
+            <div class="card">
+              <div class="card-head"><h2>What to test</h2></div>
+              <div class="segmented" id="scope">
+                <button data-scope="untested" class="active">Untested <b data-count="untested">0</b></button>
+                <button data-scope="dead">Failed <b data-count="dead">0</b></button>
+                <button data-scope="working">Working <b data-count="working">0</b></button>
+                <button data-scope="all">All <b data-count="total">0</b></button>
+              </div>
+              <button class="btn btn-primary btn-block btn-lg mt" data-action="check-toggle" id="c-btn"><svg class="ic"><use href="#i-play"/></svg><span>Start proxy test</span></button>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h2>Test settings</h2></div>
+              <label class="field">
+                <span class="field-row"><span>Threads</span><output data-out="checkThreads"></output></span>
+                <input type="range" min="1" max="1000" step="1" data-setting="checkThreads" />
+              </label>
+              <div class="field-grid">
+                <label class="field"><span>Timeout (ms)</span><input type="number" min="1000" step="500" data-setting="checkTimeout" /></label>
+                <label class="field"><span>Retries</span><input type="number" min="0" max="5" data-setting="retries" /></label>
+              </div>
+              <label class="field"><span>Target URL</span><input type="url" placeholder="Defaults to the judge URL" data-setting="targetUrl" /><small>The site each proxy must load. Speed is measured here.</small></label>
+              <label class="field"><span>Response must contain</span><input type="text" placeholder="Optional text, e.g. &lt;/html&gt;" data-setting="mustContain" /></label>
+              <label class="field"><span>Proxy judge</span>
+                <input type="url" list="judges" data-setting="judgeUrl" />
+                <datalist id="judges">
+                  <option value="http://httpbin.org/get"></option>
+                  <option value="http://azenv.net/"></option>
+                  <option value="http://httpbin.io/headers"></option>
+                </datalist>
+                <small>Echoes request headers so anonymity can be graded. ProxyScout also serves its own at <code>/judge</code>.</small>
+              </label>
+              <div class="toggles">
+                <label class="toggle"><input type="checkbox" data-setting="checkAnonymity" /><span class="track"></span><span>Detect anonymity level</span></label>
+                <label class="toggle"><input type="checkbox" data-setting="checkGoogle" /><span class="track"></span><span>Google access &amp; HTTPS support</span></label>
+                <label class="toggle"><input type="checkbox" data-setting="geoLookup" /><span class="track"></span><span>Country lookup</span></label>
+                <label class="toggle"><input type="checkbox" data-setting="autoPurgeDead" /><span class="track"></span><span>Delete dead proxies after the run</span></label>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h2>Paste a list</h2></div>
+              <textarea id="paste" rows="5" spellcheck="false" placeholder="1.2.3.4:8080&#10;socks5://5.6.7.8:1080"></textarea>
+              <div class="row-gap mt-sm">
+                <select id="paste-proto">
+                  <option value="http">HTTP / HTTPS</option>
+                  <option value="socks4">SOCKS4</option>
+                  <option value="socks5">SOCKS5</option>
+                  <option value="auto">Auto-detect</option>
+                </select>
+                <button class="btn btn-sm" data-action="paste-import"><svg class="ic"><use href="#i-upload"/></svg><span>Import</span></button>
+                <button class="btn btn-sm btn-primary" data-action="paste-check"><svg class="ic"><use href="#i-zap"/></svg><span>Import &amp; test</span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-main">
+            <div class="card live">
+              <div class="live-top">
+                <div class="ring" id="c-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" id="c-ring-fg"/></svg><div class="ring-label"><b id="c-pct">0%</b><span id="c-state">Idle</span></div></div>
+                <div class="live-stats">
+                  <div><span class="rs-label">Tested</span><span class="rs-val" id="c-done">0 / 0</span></div>
+                  <div><span class="rs-label">Working</span><span class="rs-val ok" id="c-working">0</span></div>
+                  <div><span class="rs-label">Dead</span><span class="rs-val bad" id="c-dead">0</span></div>
+                  <div><span class="rs-label">Success rate</span><span class="rs-val" id="c-rate-ok">—</span></div>
+                  <div><span class="rs-label">Speed</span><span class="rs-val" id="c-speed">—</span></div>
+                  <div><span class="rs-label">Time left</span><span class="rs-val" id="c-eta">—</span></div>
+                  <div><span class="rs-label">Elite</span><span class="rs-val" id="c-elite">0</span></div>
+                  <div><span class="rs-label">Google pass</span><span class="rs-val" id="c-google">0</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="card card-flush">
+              <div class="card-head pad"><div><h2>Live results</h2><p class="muted small">Most recent working proxies from this run</p></div><button class="btn btn-sm btn-ghost" data-goto="proxies">Open database <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+              <div class="table-wrap">
+                <table class="table" id="live-table">
+                  <thead><tr><th>Proxy</th><th>Type</th><th>Response</th><th>Anonymity</th><th>Google</th><th class="w-actions"></th></tr></thead>
+                  <tbody><tr class="empty"><td colspan="6">Start a test to see working proxies appear here.</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PROXIES ================= -->
+      <section class="view" id="view-proxies">
+        <div class="card card-flush">
+          <div class="filters">
+            <div class="search"><svg class="ic"><use href="#i-search"/></svg><input id="f-search" type="search" placeholder="Search IP, country, source…" /></div>
+            <div class="segmented seg-sm" id="f-status">
+              <button data-v="working" class="active">Working</button>
+              <button data-v="untested">Untested</button>
+              <button data-v="dead">Dead</button>
+              <button data-v="">All</button>
+            </div>
+            <select id="f-type"><option value="">All types</option><option value="http">HTTP</option><option value="https">HTTPS</option><option value="socks4">SOCKS4</option><option value="socks5">SOCKS5</option></select>
+            <select id="f-anon"><option value="">Any anonymity</option><option value="elite">Elite</option><option value="anonymous">Anonymous</option><option value="transparent">Transparent</option></select>
+            <select id="f-google"><option value="">Google: any</option><option value="1">Google: pass</option><option value="0">Google: fail</option></select>
+            <select id="f-country"><option value="">All countries</option></select>
+            <select id="f-latency"><option value="">Any speed</option><option value="500">&lt; 500 ms</option><option value="1000">&lt; 1 s</option><option value="2000">&lt; 2 s</option><option value="5000">&lt; 5 s</option></select>
+            <div class="spacer"></div>
+            <div class="dropdown">
+              <button class="btn btn-sm" data-dropdown><svg class="ic"><use href="#i-download"/></svg><span>Export</span><svg class="ic ic-sm"><use href="#i-chevron"/></svg></button>
+              <div class="menu">
+                <div class="menu-label">Current filter</div>
+                <button data-export="txt">TXT · ip:port</button>
+                <button data-export="url">TXT · protocol://ip:port</button>
+                <button data-export="csv">CSV · all columns</button>
+                <button data-export="json">JSON</button>
+                <div class="menu-sep"></div>
+                <button data-action="copy-filter">Copy all to clipboard</button>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-ghost" data-dropdown aria-label="More"><svg class="ic"><use href="#i-trash"/></svg><svg class="ic ic-sm"><use href="#i-chevron"/></svg></button>
+              <div class="menu menu-right">
+                <button data-action="purge-dead">Delete all dead proxies</button>
+                <button data-action="purge-untested">Delete all untested</button>
+                <div class="menu-sep"></div>
+                <button class="danger" data-action="purge-all">Clear entire database</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bulkbar" id="bulkbar">
+            <span id="bulk-count">0 selected</span>
+            <button class="link-btn" data-action="select-matching">Select all <b id="bulk-total">0</b> matching</button>
+            <div class="spacer"></div>
+            <button class="btn btn-sm" data-action="bulk-copy"><svg class="ic"><use href="#i-copy"/></svg><span>Copy</span></button>
+            <button class="btn btn-sm" data-action="bulk-retest"><svg class="ic"><use href="#i-refresh"/></svg><span>Re-test</span></button>
+            <button class="btn btn-sm" data-action="bulk-export"><svg class="ic"><use href="#i-download"/></svg><span>Export</span></button>
+            <button class="btn btn-sm btn-danger" data-action="bulk-delete"><svg class="ic"><use href="#i-trash"/></svg><span>Delete</span></button>
+            <button class="icon-btn" data-action="bulk-clear" title="Clear selection"><svg class="ic"><use href="#i-x"/></svg></button>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table table-hover" id="px-table">
+              <thead>
+                <tr>
+                  <th class="w-check"><input type="checkbox" id="px-all" aria-label="Select page" /></th>
+                  <th data-sort="proxy">Proxy</th>
+                  <th data-sort="type">Type</th>
+                  <th data-sort="status">Status</th>
+                  <th data-sort="latency">Response</th>
+                  <th data-sort="anonymity">Anonymity</th>
+                  <th data-sort="google">Google</th>
+                  <th data-sort="country">Country</th>
+                  <th data-sort="source" class="hide-md">Source</th>
+                  <th data-sort="checked" class="hide-md">Checked</th>
+                  <th class="w-actions"></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager">
+            <span class="muted small" id="pg-info"></span>
+            <div class="spacer"></div>
+            <select id="pg-size"><option>25</option><option selected>50</option><option>100</option><option>250</option></select>
+            <button class="icon-btn" id="pg-prev" aria-label="Previous page"><svg class="ic" style="transform:rotate(90deg)"><use href="#i-chevron"/></svg></button>
+            <span class="small" id="pg-num">1</span>
+            <button class="icon-btn" id="pg-next" aria-label="Next page"><svg class="ic" style="transform:rotate(-90deg)"><use href="#i-chevron"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SETTINGS ================= -->
+      <section class="view" id="view-settings">
+        <div class="settings-grid">
+          <div class="card">
+            <div class="card-head"><h2>Requests</h2></div>
+            <label class="field"><span>User-Agent</span><textarea rows="3" spellcheck="false" data-setting="userAgent"></textarea><small>Sent when fetching sources and testing proxies.</small></label>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Database</h2></div>
+            <dl class="kv" id="info"></dl>
+            <div class="row-gap mt">
+              <button class="btn btn-sm" data-action="purge-dead"><svg class="ic"><use href="#i-trash"/></svg><span>Delete dead</span></button>
+              <button class="btn btn-sm btn-danger" data-action="purge-all"><svg class="ic"><use href="#i-trash"/></svg><span>Clear database</span></button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Keyboard shortcuts</h2></div>
+            <dl class="kv kv-keys">
+              <dt><kbd>F1</kbd></dt><dd>Open the user guide</dd>
+              <dt><kbd>1</kbd>–<kbd>5</kbd></dt><dd>Switch pages</dd>
+              <dt><kbd>`</kbd></dt><dd>Show / hide the activity log</dd>
+              <dt><kbd>/</kbd></dt><dd>Search proxies</dd>
+              <dt><kbd>Esc</kbd></dt><dd>Close dialogs and menus</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= CONSOLE ================= -->
+    <section class="console" id="console">
+      <div class="console-head">
+        <button class="console-toggle" id="console-toggle"><svg class="ic"><use href="#i-terminal"/></svg><span>Activity log</span><span class="console-badge" id="console-new"></span><svg class="ic ic-sm chev"><use href="#i-chevron"/></svg></button>
+        <div class="chips" id="log-filter">
+          <button class="chip active" data-level="">All</button>
+          <button class="chip" data-level="ok">Success</button>
+          <button class="chip" data-level="warn">Warnings</button>
+          <button class="chip" data-level="error">Errors</button>
+        </div>
+        <div class="spacer"></div>
+        <button class="icon-btn" data-action="log-clear" title="Clear log"><svg class="ic"><use href="#i-trash"/></svg></button>
+      </div>
+      <div class="console-body" id="log"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Source dialog -->
+<dialog id="dlg-source" class="dialog">
+  <form method="dialog" id="src-form">
+    <div class="dialog-head"><h2 id="src-dlg-title">Add source</h2><button class="icon-btn" value="cancel" formnovalidate><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <label class="field"><span>Name</span><input name="name" placeholder="My proxy list" maxlength="80" /></label>
+      <label class="field"><span>URL</span><input name="url" type="url" required placeholder="https://example.com/proxies.txt" /><small>Any page or file containing ip:port pairs — plain text, HTML tables and JSON all work.</small></label>
+      <div class="field-grid">
+        <label class="field"><span>Protocol</span><select name="protocol"><option value="http">HTTP / HTTPS</option><option value="socks4">SOCKS4</option><option value="socks5">SOCKS5</option><option value="auto">Auto-detect</option></select></label>
+        <label class="field"><span>Max proxies</span><input name="max_proxies" type="number" min="0" value="0" /><small>0 = use global limit</small></label>
+      </div>
+      <div class="test-result" id="src-test"></div>
+    </div>
+    <div class="dialog-foot">
+      <button type="button" class="btn btn-ghost" id="src-test-btn"><svg class="ic"><use href="#i-zap"/></svg><span>Test source</span></button>
+      <div class="spacer"></div>
+      <button class="btn" value="cancel" formnovalidate>Cancel</button>
+      <button class="btn btn-primary" value="save" id="src-save">Save source</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Guide dialog -->
+<dialog id="dlg-guide" class="dialog dialog-wide">
+  <div class="dialog-head"><h2>User guide</h2><form method="dialog"><button class="icon-btn"><svg class="ic"><use href="#i-x"/></svg></button></form></div>
+  <div class="dialog-body guide">
+    <div class="guide-steps">
+      <div><span class="step-num">1</span><h3>Scrape</h3><p>Go to <b>Scraper</b>, tick the sources you want (or add your own URL), set threads and a per-source limit, then press <b>Start scraper</b>. New proxies are saved to the database as <i>untested</i>.</p></div>
+      <div><span class="step-num">2</span><h3>Test</h3><p>On <b>Checker</b>, pick what to test — untested, failed only, working (re-verify) or everything — and press <b>Start proxy test</b>. With auto-check on, this happens right after scraping.</p></div>
+      <div><span class="step-num">3</span><h3>Filter &amp; export</h3><p>In <b>Proxies</b>, filter by type, anonymity, Google, country and speed, sort any column, select rows, then copy, re-test, export or delete them.</p></div>
+    </div>
+    <h3>What each test means</h3>
+    <dl class="kv">
+      <dt>Response</dt><dd>Time from opening the connection to the first byte of the target page, through the proxy.</dd>
+      <dt>Elite</dt><dd>The judge sees neither your real IP nor any proxy headers.</dd>
+      <dt>Anonymous</dt><dd>Your IP is hidden, but headers such as <code>Via</code> or <code>X-Forwarded-For</code> reveal a proxy.</dd>
+      <dt>Transparent</dt><dd>Your real IP is passed through to the site.</dd>
+      <dt>Google</dt><dd>The proxy loaded google.com over HTTPS without a block or captcha page.</dd>
+      <dt>HTTPS</dt><dd>An HTTP proxy that also supports <code>CONNECT</code> tunnelling with valid TLS.</dd>
+    </dl>
+    <h3>Tips</h3>
+    <ul>
+      <li>Free lists are mostly dead. 150–300 threads with a 6–8 s timeout is a good balance on a server.</li>
+      <li>Use <b>Failed</b> scope to give dead proxies a second chance later — many come back.</li>
+      <li>For accurate anonymity grading, the judge must reach you directly. ProxyScout's own <code>/judge</code> works when the app is reachable on a public address.</li>
+    </ul>
+  </div>
+</dialog>
+
+<div class="toasts" id="toasts"></div>
+<script src="/app.js"></script>
+</body>
+</html>

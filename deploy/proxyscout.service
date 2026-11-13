@@ -1,0 +1,29 @@
+[Unit]
+Description=ProxyScout proxy scraper & checker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=proxyscout
+Group=proxyscout
+WorkingDirectory=/opt/proxyscout
+ExecStart=/usr/bin/node server.js
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=8787
+Environment=DATA_DIR=/opt/proxyscout/data
+Environment=APP_USER=admin
+# Change this before starting the service:
+Environment=APP_PASSWORD=change-me
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65535
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/proxyscout/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

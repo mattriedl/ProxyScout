@@ -1,0 +1,22 @@
+{
+  "name": "proxyscout",
+  "version": "1.0.0",
+  "description": "Proxy scraper & checker with a modern web UI",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "better-sqlite3": "^13.1.1",
+    "express": "^5.3.0",
+    "socks": "^2.8.10"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "private": true
+}
