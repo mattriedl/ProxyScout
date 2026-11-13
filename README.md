@@ -33,7 +33,7 @@ Proxy scraper and checker with a modern web dashboard. Scrapes public proxy list
 
 ## Run it
 
-Requires Node.js 18.17+ (22 recommended).
+Requires Node.js 22.13 or newer (it uses Node's built-in SQLite, so nothing needs compiling).
 
 ```bash
 npm install --omit=dev

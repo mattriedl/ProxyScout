@@ -101,9 +101,9 @@ app.get(
       .all();
     const agg = db.prepare(`SELECT AVG(latency) avg, MIN(latency) min, SUM(google=1) google, COUNT(DISTINCT country_code) countries FROM proxies WHERE ${W}`).get();
     const buckets = [250, 500, 1000, 2000, 4000, Infinity];
-    const latRows = db.prepare(`SELECT latency FROM proxies WHERE ${W} AND latency IS NOT NULL`).raw().all();
+    const latRows = db.prepare(`SELECT latency FROM proxies WHERE ${W} AND latency IS NOT NULL`).all();
     const hist = buckets.map(() => 0);
-    for (const [l] of latRows) hist[buckets.findIndex((b) => l < b)] += 1;
+    for (const { latency: l } of latRows) hist[buckets.findIndex((b) => l < b)] += 1;
     const total = Object.values(byStatus).reduce((a, b) => a + b, 0);
     return {
       total,
@@ -278,7 +278,7 @@ app.get(
   '/api/proxies/ids',
   wrap((req) => {
     const { sql, params } = buildWhere(req.query);
-    return { ids: db.prepare(`SELECT id FROM proxies ${sql} LIMIT 200000`).raw().all(...params).map((r) => r[0]) };
+    return { ids: db.prepare(`SELECT id FROM proxies ${sql} LIMIT 200000`).all(...params).map((r) => r.id) };
   })
 );
 

@@ -27,7 +27,7 @@ log() { printf '\n== %s\n' "$*"; }
 [ "$(id -u)" = 0 ] || { echo "Run as root."; exit 1; }
 command -v node >/dev/null || { echo "Node.js is not installed."; exit 1; }
 NODE_MAJOR="$(node -p 'process.versions.node.split(".")[0]')"
-[ "$NODE_MAJOR" -ge 18 ] || { echo "Node 18+ required (found $(node -v))."; exit 1; }
+[ "$NODE_MAJOR" -ge 22 ] || { echo "Node 22.13+ required (found $(node -v))."; exit 1; }
 
 if ss -ltnH "sport = :$PORT" | grep -q . && ! systemctl is-active -q proxyscout; then
   echo "Port $PORT is already in use by something else. Pass another port as the 2nd argument."
